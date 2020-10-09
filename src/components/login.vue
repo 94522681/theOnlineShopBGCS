@@ -38,61 +38,62 @@
   </div>
 </template>
 <script>
+
 export default {
-  data() {
+  data () {
     return {
       // 这是登录表单的数据对象
       loginForm: {
-        username: "",
-        password: "",
+        username: '',
+        password: ''
       },
-      //表单验证规则对象
+      // 表单验证规则对象
       loginRules: {
         username: [
           {
             required: true,
-            message: "请输入登录名字",
-            trigger: "blur",
+            message: '请输入登录名字',
+            trigger: 'blur'
           },
           {
             min: 3,
             max: 10,
-            message: "长度再3到10的字符之间",
-            trigger: "blur",
+            message: '长度再3到10的字符之间',
+            trigger: 'blur'
           }
         ],
         password: [{
-          required:true,
-          message:"请输入登录密码",
-          trigger:"blur"
+          required: true,
+          message: '请输入登录密码',
+          trigger: 'blur'
         }, {
-            min: 6,
-            max: 15,
-            message: "密码长度再6到10的字符之间",
-            trigger: "blur",
-          }
-        ],
-      },
-    };
+          min: 6,
+          max: 15,
+          message: '密码长度再6到10的字符之间',
+          trigger: 'blur'
+        }
+        ]
+      }
+    }
   },
 
-  methods:{
-    //重置表单
-    reset(){
-      this.$refs.loginFormRef.resetFields();
+  methods: {
+    // 重置表单
+    reset () {
+      this.$refs.loginFormRef.resetFields()
     },
-    login(){
-      this.$refs.loginFormRef.validate( async valid=>{
-        if(!valid)return
-        const {data:res}=await this.$http.post('login',this.loginForm)
-        if(res.meta.status!=200)return this.$message.error('登录失败');
+    login () {
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        if (res.meta.status != 200) return this.$message.error('登录失败')
         this.$message.success('登陆成功')
-        window.sessionStorage.setItem('token',res.data.token)
+        window.sessionStorage.setItem('token', res.data.token)
         this.$router.push('/home')
       })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -140,4 +141,3 @@ export default {
   box-sizing: border-box;
 }
 </style>
-
