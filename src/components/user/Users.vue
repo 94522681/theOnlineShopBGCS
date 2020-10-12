@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
@@ -73,6 +73,7 @@
                 type="warning"
                 icon="el-icon-setting"
                 size="mini"
+                @click="setRoles(scope.row)"
               ></el-button>
             </el-tooltip>
           </template>
@@ -148,6 +149,27 @@
         <span slot="footer" class="dialog-footer">
           <el-button @click="editDialogVisible = false"> 取消</el-button>
           <el-button @click="editUser" type="primary"> 确定</el-button>
+        </span>
+      </el-dialog>
+      <!-- 给用户添加角色的Dialog -->
+      <el-dialog title="修改用户" :visible.sync="addRoleDialog" width="40%">
+        <div>
+          <p>当前用户为:{{ userRole.username }}</p>
+          <p>当前角色为:{{ userRole.role_name }}</p>
+
+          <el-select v-model="selectedRoleId" placeholder="请选择">
+            <el-option
+              v-for="item in roleList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addRoleDialog = false"> 取消</el-button>
+          <el-button @click="confirmRole" type="primary"> 确定</el-button>
         </span>
       </el-dialog>
     </el-card>
@@ -246,7 +268,11 @@ export default {
         }, {
           validator: checkMoblie, trigger: 'blur'
         }]
-      }
+      },
+      addRoleDialog: false,
+      userRole: {},
+      roleList: {},
+      selectedRoleId: ''
     }
   },
   created () {
@@ -344,6 +370,29 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error('删除用户失败' + res.meta.msg)
       }
+      this.getUserList()
+    },
+    async setRoles (row) {
+      this.userRole = row
+      this.addRoleDialog = true
+      const { data: res } = await this.$http.get('roles')
+      console.log(res)
+      if (res.meta.status !== 200) {
+        return this.$message.error('查用用户数据失败')
+      }
+      this.roleList = res.data
+    },
+    // 确认角色
+    async confirmRole () {
+      console.log(this.userRole.id)
+      const { data: res } = await this.$http.put(`users/${this.userRole.id}/role`, {
+        rid: this.selectedRoleId
+      })
+      console.log(res)
+      if (res.meta.status !== 200) {
+        return this.$message.error('更新角色据失败' + res.meta.msg)
+      }
+      this.addRoleDialog = false
       this.getUserList()
     }
   }
