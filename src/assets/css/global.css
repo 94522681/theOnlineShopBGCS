@@ -22,3 +22,6 @@ body,
 #app {
   min-width: 1336px;
 }
+.el-cascader-panel {
+  height: 200px;
+}

@@ -6,26 +6,29 @@ import welcome from '../components/welcome.vue'
 import Users from '../components/user/Users.vue'
 import power from '../components/power/power.vue'
 import roles from '../components/power/roles.vue'
+import goodCate from '../components/goods/goodCate.vue'
 Vue.use(VueRouter)
-const routes = [{
-  path: '/',
-  redirect: '/login'
-},
-{
-  path: '/login',
-  component: login
-},
-{
-  path: '/home',
-  component: home,
-  redirect: '/welcome',
-  children: [{ path: '/welcome', component: welcome },
-    { path: '/users', component: Users },
-    { path: '/rights', component: power },
-    { path: '/roles', component: roles }
-
-  ]
-}
+const routes = [
+  {
+    path: '/',
+    redirect: '/login'
+  },
+  {
+    path: '/login',
+    component: login
+  },
+  {
+    path: '/home',
+    component: home,
+    redirect: '/welcome',
+    children: [
+      { path: '/welcome', component: welcome },
+      { path: '/users', component: Users },
+      { path: '/rights', component: power },
+      { path: '/roles', component: roles },
+      { path: '/categories', component: goodCate }
+    ]
+  }
 ]
 
 const router = new VueRouter({
