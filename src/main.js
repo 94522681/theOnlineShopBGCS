@@ -9,6 +9,7 @@ import treetable from 'vue-table-with-tree-grid'
 
 Vue.component('tree-table', treetable)
 Vue.config.productionTip = false
+// axios.defaults.baseURL = 'http://vue-shop-api.itheima.net/api/private/v1/'
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')

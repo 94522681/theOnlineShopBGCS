@@ -45,7 +45,7 @@
                   </el-col>
                   <el-col :span="18">
                     <el-tag
-                      v-for="(item, i3) in item.children"
+                      v-for="item in item.children"
                       :key="item.id"
                       type="warning"
                       closable
