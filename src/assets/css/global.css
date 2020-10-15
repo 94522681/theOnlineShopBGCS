@@ -25,3 +25,6 @@ body,
 .el-cascader-panel {
   height: 200px;
 }
+.ql-editor {
+  height: 300px !important;
+}

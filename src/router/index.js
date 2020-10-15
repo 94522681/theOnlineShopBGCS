@@ -6,9 +6,21 @@ import welcome from '../components/welcome.vue'
 import Users from '../components/user/Users.vue'
 import power from '../components/power/power.vue'
 import roles from '../components/power/roles.vue'
-import goodCate from '../components/goods/goodCate.vue'
-import goodParams from '../components/goods/goodParams.vue'
+import goodsCate from '../components/goods/goodCate.vue'
+import goodsParams from '../components/goods/goodParams.vue'
+import goodsList from '../components/goods/goodsList.vue'
+import add from '../components/goods/add.vue'
 Vue.use(VueRouter)
+Vue.filter('time_format', val => {
+  var data = new Date(val)
+  var y = data.getFullYear()
+  var m = data.getMonth()
+  var d = data.getDate()
+  var h = data.getHours()
+  var mt = data.getMinutes()
+  var s = data.getSeconds()
+  return `${y}-${m}-${d}  ${h}:${mt}:${s}`
+})
 const routes = [
   {
     path: '/',
@@ -27,8 +39,10 @@ const routes = [
       { path: '/users', component: Users },
       { path: '/rights', component: power },
       { path: '/roles', component: roles },
-      { path: '/categories', component: goodCate },
-      { path: '/params', component: goodParams }
+      { path: '/categories', component: goodsCate },
+      { path: '/params', component: goodsParams },
+      { path: '/goods', component: goodsList },
+      { path: '/goods/add', component: add }
     ]
   }
 ]
