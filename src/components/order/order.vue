@@ -34,7 +34,7 @@
             <el-button
               type="primary"
               icon="el-icon-edit"
-              @click="openEditDialog"
+              @click="openEditDialog(scoped)"
             ></el-button>
             <el-button
               type="success"

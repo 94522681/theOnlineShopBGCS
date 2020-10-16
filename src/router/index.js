@@ -11,6 +11,7 @@ import goodsParams from '../components/goods/goodParams.vue'
 import goodsList from '../components/goods/goodsList.vue'
 import add from '../components/goods/add.vue'
 import order from '../components/order/order.vue'
+import report from '../components/report/report.vue'
 Vue.use(VueRouter)
 Vue.filter('time_format', val => {
   var data = new Date(val)
@@ -44,7 +45,8 @@ const routes = [
       { path: '/params', component: goodsParams },
       { path: '/goods', component: goodsList },
       { path: '/goods/add', component: add },
-      { path: '/orders', component: order }
+      { path: '/orders', component: order },
+      { path: '/reports', component: report }
     ]
   }
 ]
