@@ -320,13 +320,9 @@ export default {
     async confirmRight () {
       var arr = [...this.$refs.treeRef.getCheckedKeys(), ...this.$refs.treeRef.getHalfCheckedKeys()]
       var idStr = arr.join(',')
-      console.log(arr)
-      console.log(idStr)
-      console.log(this.roleId)
       const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, {
         rids: idStr
       })
-      console.log(res)
       if (res.meta.status !== 200) {
         return this.$message.error('给用户赋予权限失败' + res.meta.msg)
       }
